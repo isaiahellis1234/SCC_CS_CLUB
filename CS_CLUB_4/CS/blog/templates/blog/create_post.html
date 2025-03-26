@@ -1,0 +1,94 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Create a New Post</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+
+            <!-- Title Input -->
+            <div>
+                <label for="id_title" class="block text-gray-700 font-semibold mb-1">Title:</label>
+                {{ form.title }}
+            </div>
+
+            <!-- Content Input -->
+            <div>
+                <label for="id_content" class="block text-gray-700 font-semibold mb-1">Content:</label>
+                {{ form.content }}
+            </div>
+
+            <!-- Category Selection -->
+            <div>
+                <label for="id_category" class="block text-gray-700 font-semibold mb-1">Choose an Existing Category:</label>
+                {{ form.category }}
+            </div>
+
+            <!-- New Category Input -->
+            <div>
+                <label for="id_new_category" class="block text-gray-700 font-semibold mb-1">Or Create a New Category:</label>
+                {{ form.new_category }}
+            </div>
+
+            <!-- Image Upload -->
+            <div>
+                <label for="id_image" class="block text-gray-700 font-semibold mb-1">Upload Image:</label>
+                {{ form.image }}
+            </div>
+
+            <!-- Preview Uploaded Image -->
+            <div id="imagePreviewContainer" class="hidden mt-4">
+                <img id="imagePreview" src="#" alt="Uploaded Image" class="w-32 h-32 object-cover rounded-md cursor-pointer">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-4">
+                <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition duration-200">
+                    Create Post
+                </button>
+                <a href="{% url 'posts' %}" class="ml-4 text-gray-500 hover:underline">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Fullscreen Image Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center hidden">
+        <img id="modalImage" src="#" class="max-w-full max-h-full rounded-lg">
+    </div>
+
+    <!-- JavaScript for Image Preview & Modal -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fileInput = document.querySelector("#id_image");
+            const previewContainer = document.querySelector("#imagePreviewContainer");
+            const previewImage = document.querySelector("#imagePreview");
+            const modal = document.querySelector("#imageModal");
+            const modalImage = document.querySelector("#modalImage");
+
+            // Show image preview when an image is selected
+            fileInput.addEventListener("change", function () {
+                const file = fileInput.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                        previewContainer.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Open the modal when the preview image is clicked
+            previewImage.addEventListener("click", function () {
+                modalImage.src = previewImage.src;
+                modal.classList.remove("hidden");
+            });
+
+            // Close the modal when clicking outside the image
+            modal.addEventListener("click", function () {
+                modal.classList.add("hidden");
+            });
+        });
+    </script>
+{% endblock %}
