@@ -130,3 +130,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'  # Users can choose to log in, but it's not required
 LOGIN_REDIRECT_URL = '/'  # After login, send them to home
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
