@@ -10,6 +10,13 @@
         <div class="mt-4">
             <img id="postImage" src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full max-h-96 object-cover rounded-md cursor-pointer">
         </div>
+
+        <!-- Modal for Enlarged Image -->
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden justify-center items-center z-50">
+            <span id="closeModal" class="absolute top-5 right-8 text-white text-4xl cursor-pointer select-none">&times;</span>
+            <img id="modalImage"
+                class="transform scale-90 opacity-0 transition duration-300 ease-in-out w-full h-auto max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl object-contain">
+        </div>
     {% endif %}
 
     <div class="mt-4 text-gray-800">
@@ -81,17 +88,65 @@
     {% endfor %}
 </div>
 
-        <!-- Comment Form -->
-        {% if request.user.is_authenticated %}
-            <h3 class="text-lg font-semibold mt-6">Add a Comment</h3>
-            <form method="POST" action="{% url 'add_comment' post.id %}" class="mt-4">
-                {% csrf_token %}
-                <textarea name="content" class="w-full p-2 border rounded" rows="4" placeholder="Write your comment here..." required></textarea>
-                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-2 hover:bg-green-600">Post Comment</button>
-            </form>
-        {% else %}
-            <p class="mt-4 text-gray-600">You must be logged in to post a comment.</p>
-        {% endif %}
-
+    <!-- Comment Form -->
+    {% if request.user.is_authenticated %}
+        <h3 class="text-lg font-semibold mt-6">Add a Comment</h3>
+        <form method="POST" action="{% url 'add_comment' post.id %}" class="mt-4">
+            {% csrf_token %}
+            <textarea name="content" class="w-full p-2 border rounded" rows="4" placeholder="Write your comment here..." required></textarea>
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-2 hover:bg-green-600">Post Comment</button>
+        </form>
+    {% else %}
+        <p class="mt-4 text-gray-600">You must be logged in to post a comment.</p>
+    {% endif %}
 </div>
+
+<!-- JavaScript for Modal Zoom Image -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const postImage = document.getElementById('postImage');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        if (postImage) {
+            postImage.addEventListener('click', () => {
+                modalImage.src = postImage.src;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+
+                // Animate zoom in
+                setTimeout(() => {
+                    modalImage.classList.remove('scale-90', 'opacity-0');
+                    modalImage.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            });
+        }
+
+        function closeImageModal() {
+            modalImage.classList.remove('scale-100', 'opacity-100');
+            modalImage.classList.add('scale-90', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        closeModal.addEventListener('click', closeImageModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeImageModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+    });
+</script>
+
 {% endblock %}
