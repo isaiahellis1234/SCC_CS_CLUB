@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import SignupForm
 from .models import Post, Comment, Category
+from django.contrib.auth.forms import UserCreationForm
 
 
 def index(request):
@@ -178,20 +179,20 @@ def logout_view(request):
     return redirect("login")
 
 
-def signup_view(request):
-    if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Account created successfully! 🎉")
-            return redirect("index")
-        else:
-            messages.error(request, "Error creating account. Please check the form.")
-    else:
-        form = SignupForm()
+# def signup_view(request):
+#     if request.method == "POST":
+#         form = SignupForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             messages.success(request, "Account created successfully! 🎉")
+#             return redirect("index")
+#         else:
+#             messages.error(request, "Error creating account. Please check the form.")
+#     else:
+#         form = SignupForm()
 
-    return render(request, "blog/signup.html", {"form": form})
+#     return render(request, "blog/signup.html", {"form": form})
 
 
 @login_required
