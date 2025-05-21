@@ -1,9 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-    <h1 class="text-3xl font-bold text-gray-900">{{ post.title }}</h1>
-    <p class="text-gray-600">By {{ post.author.username }} - {{ post.created_at }}</p>
+<div class="max-w-3xl mx-auto bg-white/5 border border-white/10 p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold text-white">{{ post.title }}</h1>
+    <p class="text-zinc-300">By {{ post.author.username }} - {{ post.created_at }}</p>
     
     <!-- Clickable Main Image -->
     {% if post.image %}
@@ -19,7 +19,7 @@
         </div>
     {% endif %}
 
-    <div class="mt-4 text-gray-800">
+    <div class="mt-4 text-zinc-300">
         {{ post.content|safe }}
     </div>
 
@@ -33,7 +33,7 @@
 
     <!-- Like Button Section -->
     <div class="mt-6">
-        <strong id="like-count">{{ post.total_likes }}</strong> Likes
+        <strong id="like-count" class="text-white">{{ post.total_likes }}</strong> Likes
 
         {% if user.is_authenticated %}
             <form method="POST" action="{% url 'post_detail' post.id %}">
@@ -52,30 +52,30 @@
                 </button>
             </form>
         {% else %}
-            <p class="text-gray-500">You need to be logged in to like a post.</p>
+            <p class="text-zinc-300">You need to be logged in to like a post.</p>
         {% endif %}
     </div>
 
     <!-- Related Posts Section -->
-    <h2 class="text-xl font-semibold mt-6">Related Posts</h2>
+    <h2 class="text-xl text-purple-500 mt-6">Related Posts</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
         {% for related in related_posts %}
-            <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
-                <h3 class="text-lg font-bold"><a href="{% url 'post_detail' related.id %}" class="text-blue-500 hover:underline">{{ related.title }}</a></h3>
-                <p class="text-gray-600">{{ related.created_at }}</p>
+            <div class="bg-fuchsia-300/10 p-4 rounded-lg shadow-sm">
+                <h3 class="text-lg font-bold"><a href="{% url 'post_detail' related.id %}" class="text-purple-500 hover:text-purple-600">{{ related.title }}</a></h3>
+                <p class="text-zinc-300">{{ related.created_at }}</p>
             </div>
         {% empty %}
-            <p>No related posts found.</p>
+            <p class="text-zinc-300">No related posts found.</p>
         {% endfor %}
     </div>
 
     <!-- Comments Section -->
-    <h2 class="text-xl font-semibold mt-6">Comments</h2>
+    <h2 class="text-xl text-white font-semibold mt-6">Comments</h2>
     <div class="mt-4">
     {% for comment in post.comments.all %}
         <div class="border-b border-gray-200 py-2 {% if comment.author == request.user %} bg-blue-100 {% endif %} p-2 rounded-md">
-            <p><strong>{{ comment.author.username }}</strong> - {{ comment.created_at }}</p>
-            <p>{{ comment.content }}</p>
+            <p class="text-zinc-300"><strong>{{ comment.author.username }}</strong> - {{ comment.created_at }}</p>
+            <p class="text-zinc-300">{{ comment.content }}</p>
             {% if request.user == post.author %}
                 <form method="POST" action="{% url 'delete_comment' comment.id %}">
                     {% csrf_token %}
@@ -84,7 +84,7 @@
             {% endif %}
         </div>
     {% empty %}
-        <p>No comments yet. Be the first to comment!</p>
+        <p class="text-zinc-300">No comments yet. Be the first to comment!</p>
     {% endfor %}
 </div>
 
