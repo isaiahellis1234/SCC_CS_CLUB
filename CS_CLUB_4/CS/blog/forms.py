@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class PostForm(forms.ModelForm):
     new_category = forms.CharField(
-        required=False,
+        required=True,
         max_length=100,
         help_text="Leave blank if selecting an existing category.",
     )

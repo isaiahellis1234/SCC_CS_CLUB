@@ -1,18 +1,18 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    <h1 class="text-2xl text-white font-bold">Search Results for "{{ query }}"</h1>
+    <h1 style="font-family: Space Grotesk, sans-serif;" class="text-2xl text-white font-bold">Search Results for "{{ query }}"</h1>
     
     {% if posts %}
         <ul>
             {% for post in posts %}
                 <li>
-                    <a href="{% url 'post_detail' post.id %}" class="text-blue-500">{{ post.title }}</a>
-                    <span class="text-gray-500">by {{ post.author.username }}</span>
+                    <a href="{% url 'post_detail' post.id %}" style="font-family: Space Grotesk, sans-serif;" class="text-blue-500">{{ post.title }}</a>
+                    <span style="font-family: Space Grotesk, sans-serif;" class="text-gray-500">by {{ post.author.username }}</span>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p class="text-white">No posts found in this category.</p>
+        <p style="font-family: Space Grotesk, sans-serif;" class="text-white">No posts found in this category.</p>
     {% endif %}
 {% endblock %}
