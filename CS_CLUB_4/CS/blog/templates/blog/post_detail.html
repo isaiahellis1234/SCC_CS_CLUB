@@ -25,7 +25,7 @@
 
     {% if request.user == post.author %}
     <a href="{% url 'post_edit' post.id %}" 
-       style="font-family: Space Grotesk, sans-serif;" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 mt-4 inline-block">
+       style="font-family: Space Grotesk, sans-serif;" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 mt-4 inline-block">
        ✏️ Edit Post
     </a>
     <a href="{% url 'post_delete' post.id %}" style="font-family: Space Grotesk, sans-serif;" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4">Delete Post</a>
@@ -39,9 +39,9 @@
             <form method="POST" action="{% url 'post_detail' post.id %}">
                 {% csrf_token %}
                 <button type="submit" name="like_post" 
-                        style="background-color: rgb(147, 51, 234)" class="text-white px-4 py-2 rounded transition duration-300 mt-2"
+                        style="background-color: rgb(147, 51, 234); font-family: Space Grotesk, sans-serif;" class="text-white px-4 py-2 rounded transition duration-300 mt-2"
                         {% if liked %}
-                            style="background-color: red"
+                            style="background-color: rgb(126, 34, 206)"
                         {% endif %}
                 >
                     {% if liked %}

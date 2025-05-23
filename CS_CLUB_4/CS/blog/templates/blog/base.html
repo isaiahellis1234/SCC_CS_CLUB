@@ -7,13 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="C:\Users\catwi\SCC_CS_CLUB-1\CS_CLUB_4\CS\staticfiles\admin\css\interactivebg.css">
     {% load static %}
 </head>
 <body class="bg-black">
-    <canvas id="interactive-background {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;}"></canvas>
+    <canvas id="interactive-background"></canvas>
 
     <nav class="py-6 px-6 flex justify-between items-center bg-black shadow-md">
-        <a href="/" class="text-2xl font-semibold text-white">< SCC CS Club /></a>
+        <a href="/" style="font-family: Space Grotesk, sans-serif;" class="text-2xl font-semibold text-white">< SCC CS Club /></a>
         
         <div class="space-x-4">
             <a href="https://csclubsolano.com/blog.html" style="font-family: Space Grotesk, sans-serif;" class="text-white hover:text-purple-500 transition duration-300">Back to Main Website</a>
@@ -41,6 +42,6 @@
     {% endfor %}
     {% endif %}
 
-    <script src="../js/interactivebg.js"></script>
+    <script src="C:\Users\catwi\SCC_CS_CLUB-1\CS_CLUB_4\CS\staticfiles\admin\js\interactivebg.js"></script>
 </body>
 </html>

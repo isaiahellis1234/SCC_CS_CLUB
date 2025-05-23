@@ -47,27 +47,26 @@ def create_post(request):
 
     return render(request, "blog/create_post.html", {"form": form})
 
-
 def category_search(request):
     query = request.GET.get("q", "").strip()  # Get search query and remove extra spaces
-    posts = []
 
-    if query:
-        # Find categories that contain the search query (case-insensitive)
-        categories = Category.objects.filter(name__icontains=query)
+    if not query:
+        # Option 1: Show message and reload the same page
+        messages.error(request, "Please enter a search term.")
+        return render(request, "blog/category_search.html", {"query": "", "categories": None, "posts": []})
 
-        if categories.exists():
-            # Get all posts belonging to found categories
-            posts = Post.objects.filter(category__in=categories)
-        else:
-            categories = None  # No categories found
+        # Option 2 (alternative): Redirect to another page
+        # return redirect("home")  # Replace with your desired URL name
+
+    # Search logic
+    categories = Category.objects.filter(name__icontains=query)
+    posts = Post.objects.filter(category__in=categories) if categories.exists() else []
 
     return render(
         request,
         "blog/category_search.html",
         {"query": query, "categories": categories, "posts": posts},
     )
-
 
 def category_posts(request, category_id):
     category = get_object_or_404(Category, id=category_id)
