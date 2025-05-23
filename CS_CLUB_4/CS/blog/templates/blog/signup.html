@@ -1,15 +1,19 @@
 {% extends 'blog/base.html' %}
 {% block content %}
-    <div>   
-        <h2>Sign Up</h2>
-        <form method="post">
+<div class="flex items-center justify-center min-h-screen bg-black">
+    <div class="bg-white/5 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 style="font-family: Space Grotesk, sans-serif;" class="text-2xl font-bold text-center text-purple-500 mb-6">Sign Up</h1>
+
+        <form method="post" class="space-y-4">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Sign Up</button>
+            
+            <a style="font-family: Space Grotesk, sans-serif;" class="text-zinc-400">{{ form }}</a>
+            <button type="submit" style="font-family: Space Grotesk, sans-serif;" class="w-full bg-purple-500 text-white px-3 py-2 rounded-lg hover:bg-purple-600 transition duration-300">Sign Up</button>
         </form>
-        <p>
-            Already have an account
-            <a href="{% url 'login' %}">Log in here!</a>
+        <p style="font-family: Space Grotesk, sans-serif;" class="text-gray-600 text-center mt-4">
+            Already have an account?
+            <a href="{% url 'login' %}" class="text-purple-500 hover:text-purple-600 transition duration-300">Log in here!</a>
         </p>
     </div>
+</div>
 {% endblock %}

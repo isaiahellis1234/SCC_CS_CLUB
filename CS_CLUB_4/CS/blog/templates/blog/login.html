@@ -3,7 +3,7 @@
 {% block content %}
 <div class="flex items-center justify-center min-h-screen bg-black">
     <div class="bg-white/5 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 class="text-2xl font-bold text-center text-purple-500 mb-6">Login</h1>
+        <h1 style="font-family: Space Grotesk, sans-serif;" class="text-2xl font-bold text-center text-purple-500 mb-6">Login</h1>
 
         {% if form.errors %}
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -15,21 +15,21 @@
             {% csrf_token %}
 
             <div>
-                <label for="username" class="block text-fuchsia-200 font-medium">Username</label>
+                <label for="username" style="font-family: Space Grotesk, sans-serif;" class="block text-fuchsia-200 font-medium">Username</label>
                 <input type="text" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
             </div>
 
             <div>
-                <label for="password" class="block text-fuchsia-200 font-medium">Password</label>
+                <label for="password" style="font-family: Space Grotesk, sans-serif;" class="block text-fuchsia-200 font-medium">Password</label>
                 <input type="password" name="password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required>
             </div>
 
-            <button type="submit" class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition duration-300">
+            <button type="submit" style="font-family: Space Grotesk, sans-serif;" class="w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition duration-300">
                 Login
             </button>
         </form>
 
-        <p class="text-center text-gray-600 mt-4">
+        <p style="font-family: Space Grotesk, sans-serif;" class="text-center text-gray-600 mt-4">
             Don't have an account?
             <a href="{% url 'signup' %}" class="text-purple-500 hover:text-purple-600 transition duration-300">Sign Up</a>
         </p>
